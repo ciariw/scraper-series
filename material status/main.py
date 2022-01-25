@@ -12,7 +12,6 @@ if day < 9:
     day = f"0{day}"
 def idworkbook():
     ms = glob2.glob('memstatus/Laminator*.xlsx')
-    print(ms)
     for i in ms:
         booky = openpyxl.load_workbook(i)
         ws = booky["Laminator Membrane Status"]
@@ -27,7 +26,6 @@ def processing():
         , "E3": {"Lami1": {"Teflon": [[], []], "Membrane": []}, "Lami2": {"Teflon": [[], []], "Membrane": []},
                  "Lami3": {"Teflon": [[], []], "Membrane": []}, "Lami4": {"Teflon": [[], []], "Membrane": []}}}
     ms = glob2.glob("memtemp/E*")
-    print(MD)
     for i in ms:
         book = openpyxl.load_workbook(i)
         ws = book["Laminator Membrane Status"]
