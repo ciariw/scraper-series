@@ -128,8 +128,7 @@ def save(omega):
 
 
 def main():
-    d = processing()
-    save(listify(d))
+    save(listify(processing()))
 
 
 
