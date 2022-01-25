@@ -7,7 +7,7 @@ import os
 
 preferences = {
     "profile.default_content_settings.popups": 0,
-    "download.default_directory": r'C:\Users\EmekaAriwodo\Desktop\mems\memstatus\\',
+    "download.default_directory": r'C:\Users\MYNAME\Desktop\mems\memstatus\\',
     "directory_upgrade": True
 }
 optionz = webdriver.ChromeOptions()
@@ -29,7 +29,7 @@ def download():
         driver.find_element_by_id(f"button-{a[7:11]}-btnIconEl").click()
 def initialize():
     driver.get("http://10.60.110.42/emiplus/home")
-    driver.find_element_by_id("j_username").send_keys("hqcell")
-    driver.find_element_by_id("j_password").send_keys("1")
+    driver.find_element_by_id("j_username").send_keys("XXXXXXXX")
+    driver.find_element_by_id("j_password").send_keys("XXXXXXXXXXXX")
     driver.find_element_by_class_name("btnWelcomeLogin").click()
-    driver.get("http://10.60.110.42/emiplus/home#EQP1020:viewReportId=EQP1020")
+    driver.get("XXXXXXXXXXXXXXXX")
