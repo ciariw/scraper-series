@@ -11,7 +11,8 @@ preferences = {
     "directory_upgrade": True
 }
 optionz = webdriver.ChromeOptions()
-
+optionz.add_argument("window-size=1920,1080")
+optionz.add_argument("--headless")
 optionz.add_experimental_option('prefs', preferences)
 
 driver = webdriver.Chrome(
