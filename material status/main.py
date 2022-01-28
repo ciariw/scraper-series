@@ -35,7 +35,6 @@ def processing():
     for i in ms:
         book = openpyxl.load_workbook(i)
         ws = book["Laminator Membrane Status"]
-
         for j in list(range(1, 10)):
             # Membrane
             MD[i[10:12]]["Lami1"]["Membrane"] = [ws["E9"].value, ws["E10"].value]
@@ -54,6 +53,7 @@ def processing():
 
             MD[i[10:12]]["Lami4"]["Teflon"][0].append(ws[f"{chr(j + 68)}23"].value)
             MD[i[10:12]]["Lami4"]["Teflon"][1].append(ws[f"{chr(j + 68)}24"].value)
+        os.remove(i)
     return MD
 
 def listify(a):
@@ -129,8 +129,20 @@ def save(omega):
 
     for indx,z in enumerate(omega):
         ws.cell(row = indx+35, column = i).value = z
+    # For too long I have had to start over because I had the file open. Never again!
+    try:
+        wb.save("Laminator_Consumable Parts_Life Span Trend.xlsx")
+    except:
+        wb.save("Laminatortemp.temp")
 
-    wb.save("Laminator_Consumable Parts_Life Span Trend.xlsx")
+    while True:
+        try:
+            wb.save("Laminator_Consumable Parts_Life Span Trend.xlsx")
+        except:
+            pass
+        else:
+            os.remove("Laminatortemp.temp")
+            break
 
 def main():
     save(listify(processing()))
