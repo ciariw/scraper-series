@@ -7,7 +7,7 @@ import profiles
 import json
 
 def new_session(driver=None, ftr=None):
-    # Holy grail of hacks. New Tab, call the function, close tab. Each tab retains all cookies, so there is
+    # Plan New: (hacky) Tab, call the function, close tab. Each tab retains all cookies, so there is
     # no need to log in again
 
     if ftr == "Job Listings":
