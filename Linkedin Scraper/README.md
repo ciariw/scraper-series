@@ -4,4 +4,4 @@
 <li>Selenium</li>
 </ul>
 <hr>
-After installing all dependencies, you need to change the details in the Login.json file.
+After installing all dependencies, you need to change the details in the Login.json file. Updates are made sporadically
