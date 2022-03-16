@@ -17,7 +17,8 @@ feature_list = ["Job Listings", "Connection Info", "Company Employee list"]
 
 def main():
     try:
-        ftr = feature_list[int(input(f"Select From the list of Features {feature_list}, "
+        # Sorry for the unreadability
+        ftr = feature_list[int(input(f"Select From the list of Features {feature_list}: "
                                  f"{[a for a in range(1,len(feature_list)+1)]}\n"))-1]
     except IndexError:
         print("You did not select a valid option!")
@@ -32,7 +33,6 @@ def main():
         raise Exception("Your have an issue with your login credentials")
         return
 
-    print(driver.session_id)
     Functions.new_session(driver, ftr)
     return
 
