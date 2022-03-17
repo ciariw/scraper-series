@@ -7,7 +7,7 @@ import profiles
 import json
 
 def new_session(driver=None, ftr=None):
-    # Plan New: (hacky) Tab, call the function, close tab. Each tab retains all cookies, so there is
+    # Holy grail of hacks. New Tab, call the function, close tab. Each tab retains all cookies, so there is
     # no need to log in again
 
     if ftr == "Job Listings":
@@ -38,11 +38,22 @@ def connection_info(driver=None):
         lnk = driver.find_elements_by_xpath("//div[1]/div/span[1]/span/a")
         headers = driver.find_elements_by_xpath("//ul/li/div/div/div[2]/div[1]/div[2]/div/div[1]")
         locations = driver.find_elements_by_xpath("//div/div/div[1]/ul/li/div/div/div[2]/div[1]/div[2]/div/div[2]")
+
         for i, ids, hd, loc in zip(li, lnk, headers, locations):
-            data_for_json[i.text] = [{"Description": hd.text, "Link": ids.get_attribute('href'), "Location": loc.text}]
             name_set.append(profiles.Person(i.text))
             name_set[-1].id = ids.get_attribute('href')
             name_set[-1].header = hd.text
+            driver.execute_script(f"window.open('{ids.get_attribute('href')}', '_blank');")
+            driver.switch_to.window(driver.window_handles[1])
+            try:
+                job = driver.find_element_by_xpath("//div[2]/ul/li[1]/a/h2/div").text
+            except:
+                print("problem")
+                job = "N/A"
+            driver.close()
+            driver.switch_to.window(driver.window_handles[0])
+            data_for_json[i.text] = [{"Description": hd.text, "Link": ids.get_attribute('href'), "Location": loc.text,
+                                     "Current Job": job}]
         # This is kind of hacky but the next linkedin button wont load unless the button is within view
         driver.execute_script("window.scrollTo(0, 915)")
         while True:
@@ -57,13 +68,12 @@ def connection_info(driver=None):
                 sleep(0.5)
                 driver.execute_script("window.scrollTo(0, 915)")
                 break
-        "/html/body/div[5]/div[3]/div/div[2]/div/div[1]/main/div/div/div[3]/div/div/button[2]"
+
     with open('connection data.json', 'w', encoding='utf-8') as f:
         json.dump(data_for_json, f, ensure_ascii=False, indent=3)
 
-    for i in name_set:
-        print(f"Name:{i.name}\n desc: {i.header}\n URL: {i.id}\n List of Jobs: {i.jobs}\n--------------------------")
-    sleep(500)
+    '''for i in name_set:
+        print(f"Name:{i.name}\n desc: {i.header}\n URL: {i.id}\n List of Jobs: {i.jobs}\n--------------------------")'''
     return
 
 
